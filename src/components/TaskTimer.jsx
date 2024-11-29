@@ -31,10 +31,14 @@ console.log('time in TaskTimer : ', startedTaskId)
     useEffect(() => {
         if (isTimerActive && remainingTime > 0) {
             const interval = setInterval(() => {
+
                 setRemainingTime((prevTime) => prevTime - 1); // Decrement timer by 1 second
             }, 1000);
 
             return () => clearInterval(interval); // Clear interval to prevent memory leaks
+        }
+        else{
+            setTimeOnDoneConfirm()
         }
     }, [isTimerActive, remainingTime]);
 

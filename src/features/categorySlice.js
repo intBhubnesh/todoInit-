@@ -44,7 +44,7 @@ export const categorySlice = createSlice({
             const category = state.CategoryList.find((cat) => cat.id === CategoryId)
             if(category){
                 category.task.push(todo)
-            } 
+            }
 
 
         },

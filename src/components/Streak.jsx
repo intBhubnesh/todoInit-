@@ -1,7 +1,9 @@
-import { React } from "react"
+import { React, useState } from "react"
+import { useSelector } from "react-redux"
 
 export default function Streak() {
-    const activeCount = 5
+    const category = useSelector(state => state.todos.todoList.filter((todo) => todo.status === "Completed"))
+    const activeCount = category.length
     let date = new Date()
     return (
         <div className="flex flex-row items-center justify-between w-full px-10 mt-6">
@@ -20,8 +22,6 @@ export default function Streak() {
                     </div>
                 ))}
             </div>
-
-
         </div>
     )
 }

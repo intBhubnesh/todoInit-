@@ -1,13 +1,16 @@
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 import Button from "./Button";
 import { useDispatch, useSelector } from "react-redux";
 import TaskTimer from "../components/TaskTimer";
 import { removeTodo, startTodo } from "../features/todoSlice";
 import { removeTodoFromCategory } from "../features/categorySlice";
+import UpdateTodo from "./UpdateTodo";
 
 
 export default function Task({id ,categoryId}) {
     const [isTaskTimerOpen, setIsTaskTimerOpen] = useState(false)
+    const [updateTodo, setUpdateTodo] = useState(false)
+
     const todo = useSelector(state => state.todos.todoList.find(todo => todo.id === id))
     const activeStatus = todo.status
     const dispatch = useDispatch()
@@ -21,9 +24,14 @@ export default function Task({id ,categoryId}) {
         setIsTaskTimerOpen(true)
     }
 
-    function handleTaskDelete(){
+    function handleTodoDelete(){
         dispatch(removeTodoFromCategory({CategoryId:categoryId ,toDo:todo}))
         dispatch(removeTodo(id))
+    }
+
+    function handleTodoUpdate(){
+        setUpdateTodo(true)
+        todo = useSelector(state => state.todos.todoList.find(todo => todo.id === id))
     }
     return (
         <div className="w-full px-8 h-fit ">
@@ -31,7 +39,7 @@ export default function Task({id ,categoryId}) {
                 <div className="inline-flex flex-row items-start justify-between gap-3">
                    <div className="flex flex-row items-center justify-center gap-2 mt-2 ">
 
-                   <div  className="inline-flex items-center justify-center" onClick={handleTaskDelete}>
+                   <div  className="inline-flex items-center justify-center" onClick={handleTodoDelete}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
   <path d="M14.74 9.00003L14.394 18M9.606 18L9.26 9.00003M19.228 5.79003C19.57 5.84203 19.91 5.89703 20.25 5.95603M19.228 5.79003L18.16 19.673C18.1164 20.2383 17.8611 20.7662 17.445 21.1513C17.029 21.5364 16.4829 21.7502 15.916 21.75H8.084C7.5171 21.7502 6.97102 21.5364 6.55498 21.1513C6.13894 20.7662 5.88359 20.2383 5.84 19.673L4.772 5.79003M19.228 5.79003C18.0739 5.61555 16.9138 5.48313 15.75 5.39303M4.772 5.79003C4.43 5.84103 4.09 5.89603 3.75 5.95503M4.772 5.79003C5.92613 5.61555 7.08623 5.48313 8.25 5.39303M15.75 5.39303V4.47703C15.75 3.29703 14.84 2.31303 13.66 2.27603C12.5536 2.24067 11.4464 2.24067 10.34 2.27603C9.16 2.31303 8.25 3.29803 8.25 4.47703V5.39303M15.75 5.39303C13.2537 5.20011 10.7463 5.20011 8.25 5.39303" stroke="#6F6D6B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
@@ -39,7 +47,7 @@ export default function Task({id ,categoryId}) {
                     </div>
                     <div className="inline-flex items-center justify-center">
                         {
-                            activeStatus !== 'Completed' ? (                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            activeStatus !== 'Completed' ? (                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" onClick={handleTodoUpdate}>
                                 <path d="M15 12H9M21 12C21 13.1819 20.7672 14.3522 20.3149 15.4442C19.8626 16.5361 19.1997 17.5282 18.364 18.364C17.5282 19.1997 16.5361 19.8626 15.4442 20.3149C14.3522 20.7672 13.1819 21 12 21C10.8181 21 9.64778 20.7672 8.55585 20.3149C7.46392 19.8626 6.47177 19.1997 5.63604 18.364C4.80031 17.5282 4.13738 16.5361 3.68508 15.4442C3.23279 14.3522 3 13.1819 3 12C3 9.61305 3.94821 7.32387 5.63604 5.63604C7.32387 3.94821 9.61305 3 12 3C14.3869 3 16.6761 3.94821 18.364 5.63604C20.0518 7.32387 21 9.61305 21 12Z" stroke="#6F6D6B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                               </svg>) : (                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
   <path fill-rule="evenodd" clip-rule="evenodd" d="M2.25 12C2.25 6.615 6.615 2.25 12 2.25C17.385 2.25 21.75 6.615 21.75 12C21.75 17.385 17.385 21.75 12 21.75C6.615 21.75 2.25 17.385 2.25 12ZM15.61 10.186C15.67 10.1061 15.7134 10.0149 15.7377 9.91795C15.762 9.82098 15.7666 9.72014 15.7514 9.62135C15.7361 9.52257 15.7012 9.42782 15.6489 9.3427C15.5965 9.25757 15.5276 9.18378 15.4463 9.12565C15.3649 9.06753 15.2728 9.02624 15.1753 9.00423C15.0778 8.98221 14.9769 8.97991 14.8785 8.99746C14.7801 9.01501 14.6862 9.05205 14.6023 9.10641C14.5184 9.16077 14.4462 9.23135 14.39 9.314L11.154 13.844L9.53 12.22C9.38782 12.0875 9.19978 12.0154 9.00548 12.0188C8.81118 12.0223 8.62579 12.101 8.48838 12.2384C8.35097 12.3758 8.27225 12.5612 8.26882 12.7555C8.2654 12.9498 8.33752 13.1378 8.47 13.28L10.72 15.53C10.797 15.6069 10.8898 15.6662 10.992 15.7036C11.0942 15.7411 11.2033 15.7559 11.3118 15.7469C11.4202 15.738 11.5255 15.7055 11.6201 15.6519C11.7148 15.5982 11.7967 15.5245 11.86 15.436L15.61 10.186Z" fill="#75AB5C"/>
@@ -83,6 +91,9 @@ export default function Task({id ,categoryId}) {
             </div>
             {isTaskTimerOpen &&
                 (<TaskTimer setIsTaskTimerOpen={setIsTaskTimerOpen} startedTaskId={id}/>)
+            }
+            {updateTodo &&
+                (<UpdateTodo setUpdateTodo={setUpdateTodo} updateTodoId={todo.id}/>)
             }
         </div>
 

@@ -33,6 +33,20 @@ export const todoSlice = createSlice({
         removeTodo : (state, action) => {
             state.todoList = state.todoList.filter((todo) => todo.id !== action.payload)
         },
+        updateTodo : (state, action) => {
+            const { id, name, time, status, categoryId, difficulty, dueDate } = action.payload;
+            const todo = state.todoList.find((todo) => todo.id === id);
+            console.log('before : ', todo)
+            if (todo) {
+                todo.name = name;
+                todo.time = time;
+                todo.status = status;
+                todo.categoryId = categoryId;
+                todo.difficulty = difficulty;
+                todo.dueDate = dueDate;
+            }
+            console.log('after : ', todo)
+        },
         startTodo : (state, action) => {
             const todo = state.todoList.find((todo) => todo.id === action.payload)
             if(todo){
@@ -57,7 +71,7 @@ export const todoSlice = createSlice({
 })
 
 // export the individual functions as a componet to use them in other components
-export const {addTodo, removeTodo, startTodo, completedTodo, pausedTodo} = todoSlice.actions
+export const {addTodo, removeTodo, startTodo, completedTodo, pausedTodo, updateTodo} = todoSlice.actions
 
 // export the reducer list so the storage can registem them for use and update state
 export default todoSlice.reducer
