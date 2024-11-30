@@ -11,7 +11,7 @@ export default function Task({id ,categoryId}) {
     const [isTaskTimerOpen, setIsTaskTimerOpen] = useState(false)
     const [updateTodo, setUpdateTodo] = useState(false)
 
-    const todo = useSelector(state => state.todos.todoList.find(todo => todo.id === id))
+    let todo = useSelector(state => state.todos.todoList.find(todo => todo.id === id))
     const activeStatus = todo.status
     const dispatch = useDispatch()
 

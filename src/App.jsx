@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import Background from './sections/Background.jsx'
 import Forgound from './sections/Forground.jsx'
 
