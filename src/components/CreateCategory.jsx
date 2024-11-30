@@ -1,8 +1,8 @@
 import { React, useState } from "react"
-import Button from "./Button"
+import Button from "./Button.jsx"
 import image from "../assets/03.svg"
 import { useDispatch } from "react-redux"
-import { addCategory } from "../features/categorySlice"
+import { addCategory } from "../features/categorySlice.js"
 
 export default function CreateCategory({setShowCreateCategory}){
 

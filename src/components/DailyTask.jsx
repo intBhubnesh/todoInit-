@@ -1,6 +1,6 @@
 import { React } from "react";
 import { useSelector } from 'react-redux';
-import Task from './Task'
+import Task from './Task.jsx'
 
 export default function DailyTask(){
     const categoryList = useSelector(state => state.categories.CategoryList);

@@ -1,10 +1,10 @@
 import { React, useState } from "react";
-import Streak from "../components/Streak";
-import Category from "../components/Category";
-import CreateToDo from "../components/CreateToDo";
-import AddToDo from "../components/AddToDo";
-import PendingTask from "../components/PendingTask";
-import DailyTask from "../components/DailyTask";
+import Streak from "../components/Streak.jsx";
+import Category from "../components/Category.jsx";
+import CreateToDo from "../components/CreateToDo.jsx";
+import AddToDo from "../components/AddToDo.jsx";
+import PendingTask from "../components/PendingTask.jsx";
+import DailyTask from "../components/DailyTask.jsx";
 export default function Forgound() {
     const [showCreateToDo, setShowCreateToDo] = useState(false)
 

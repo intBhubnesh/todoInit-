@@ -1,8 +1,8 @@
 import { React, useState } from "react"
-import CreateCategory from "./CreateCategory"
+import CreateCategory from "./CreateCategory.jsx"
 import { useDispatch, useSelector } from "react-redux"
-import Button from "./Button"
-import { selectCategory } from '../features/categorySlice'
+import Button from "./Button.jsx"
+import { selectCategory } from '../features/categorySlice.js'
 
 export default function Category(){
     const dispatch  = useDispatch()

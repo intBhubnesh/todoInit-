@@ -1,5 +1,5 @@
 import { React } from "react";
-import Button from "./Button";
+import Button from "./Button.jsx";
 import PopUpImg  from "../assets/PopUpImg.png"
 
 export default function CautionPopUp({setIsPopUpOpen, heading, description, onClick }) {

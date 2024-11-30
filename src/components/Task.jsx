@@ -1,10 +1,10 @@
 import { React, useEffect, useState } from "react";
-import Button from "./Button";
+import Button from "./Button.jsx";
 import { useDispatch, useSelector } from "react-redux";
-import TaskTimer from "../components/TaskTimer";
-import { removeTodo, startTodo } from "../features/todoSlice";
-import { removeTodoFromCategory } from "../features/categorySlice";
-import UpdateTodo from "./UpdateTodo";
+import TaskTimer from "../components/TaskTimer.jsx";
+import { removeTodo, startTodo } from "../features/todoSlice.js";
+import { removeTodoFromCategory } from "../features/categorySlice.js";
+import UpdateTodo from "./UpdateTodo.jsx";
 
 
 export default function Task({id ,categoryId}) {

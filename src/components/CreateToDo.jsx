@@ -1,11 +1,11 @@
 import {React, useState} from 'react'
-import ToDoTags from './toDoTags'
+import ToDoTags from './toDoTags.jsx'
 import calender from '../assets/calender.svg'
 import time from "../assets/time.svg";
 import easy  from "../assets/easy.svg";
 import puzzel from "../assets/puzzel.svg"
 import dropDown from "../assets/dropDown.svg"
-import Button from './Button';
+import Button from './Button.jsx';
 import dayjs from 'dayjs';
 import { useDispatch, useSelector } from 'react-redux';
 import { addTodo } from '../features/todoSlice';

@@ -4,7 +4,7 @@ import tick from '../assets/tick.svg'
 import minus from '../assets/minus.svg'
 import cross from '../assets/cross.svg'
 import add from '../assets/add.svg'
-import CautionPopUp from './CautionPopUp'
+import CautionPopUp from './CautionPopUp.jsx'
 
 
 export default function TimerButtons({handleDoneConfirm, handelDoneQuite , setRemainingTime}) {

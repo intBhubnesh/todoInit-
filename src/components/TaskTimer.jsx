@@ -1,9 +1,9 @@
 import { React, useEffect, useState } from "react";
-import Button from "./Button"
-import Plants from "./Plants"
+import Button from "./Button.jsx"
+import Plants from "./Plants.jsx"
 import { useDispatch, useSelector } from "react-redux";
-import TimerButtons  from "./TimerButtons"
-import { completedTodo, pausedTodo } from "../features/todoSlice";
+import TimerButtons  from "./TimerButtons.jsx"
+import { completedTodo, pausedTodo } from "../features/todoSlice.js";
 
 
 export default function TaskTimer({setIsTaskTimerOpen,startedTaskId}){

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import Task from './Task'
+import Task from './Task.jsx'
 
 
 export default function PendingTask(){
