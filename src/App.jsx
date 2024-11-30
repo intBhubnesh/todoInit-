@@ -1,5 +1,5 @@
-import Background from './sections/Background.jsx'
-import Forgound from './sections/Forground.jsx'
+import Background from './sections/Background';
+import Foreground from './sections/Forground';
 
 
 function App() {
@@ -8,7 +8,7 @@ function App() {
     <>
 
         <Background />
-        <Forgound />
+        <Foreground />
 
 
 

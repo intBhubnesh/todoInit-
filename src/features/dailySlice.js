@@ -1,6 +1,6 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
 
-const intialState = {
+const initialState = {
     dailyList : [{    id : 1,
     name : 'Wash Cloths',
     time : '20 Min',
@@ -11,7 +11,7 @@ const intialState = {
 
 export const dailySlice = createSlice({
     name : "daily",
-    intialState,
+    initialState,
     reducers : {
         addDaily : (state, action) => {
             const {name, time, difficulty } = action.payload
@@ -49,6 +49,6 @@ export const dailySlice = createSlice({
 })
 
 
-export const {} = dailySlice.actions
+export const {addDaily,removeDaily, updateDaily } = dailySlice.actions
 
 export default dailySlice.reducer
