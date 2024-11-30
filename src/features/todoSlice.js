@@ -1,4 +1,4 @@
-import { createSlice, nanoid } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     todoList : [{
@@ -45,7 +45,6 @@ export const todoSlice = createSlice({
                 todo.difficulty = difficulty;
                 todo.dueDate = dueDate;
             }
-            console.log('after : ', todo)
         },
         startTodo : (state, action) => {
             const todo = state.todoList.find((todo) => todo.id === action.payload)

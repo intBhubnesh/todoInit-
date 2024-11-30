@@ -27,20 +27,21 @@ console.log('time in TaskTimer : ', startedTaskId)
         }
     }, [selectedTodo]);
 
-    // Start the countdown when the timer is active
-    useEffect(() => {
-        if (isTimerActive && remainingTime > 0) {
+// Start the countdown when the timer is active
+useEffect(() => {
+    if (isTimerActive) {
+        if (remainingTime > 0) {
             const interval = setInterval(() => {
-
                 setRemainingTime((prevTime) => prevTime - 1); // Decrement timer by 1 second
             }, 1000);
 
             return () => clearInterval(interval); // Clear interval to prevent memory leaks
+        } else {
+            setTimeOnDoneConfirm(); // Trigger only if `remainingTime` reaches 0 while active
         }
-        else{
-            setTimeOnDoneConfirm()
-        }
-    }, [isTimerActive, remainingTime]);
+    }
+}, [isTimerActive, remainingTime]);
+
 
     // Function to parse time input into seconds
     function parseTime(inputTime) {
