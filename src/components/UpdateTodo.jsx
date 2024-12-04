@@ -10,7 +10,7 @@ import dayjs from 'dayjs';
 import { useDispatch, useSelector } from 'react-redux';
 import { addTodo, updateTodo } from '../features/todoSlice';
 import { AnimatePresence,motion } from 'framer-motion';
-import { addTodoToCategory } from '../features/categorySlice';
+import { addTodoToCategory, removeTodoFromCategory } from '../features/categorySlice';
 import { nanoid } from '@reduxjs/toolkit';
 export default function CreateToDo({setUpdateTodo, updateTodoId }){
     const dispatch = useDispatch()
@@ -45,6 +45,8 @@ export default function CreateToDo({setUpdateTodo, updateTodoId }){
 
         // Dispatch the new todo and associate it with the category
         dispatch(updateTodo(newTodo));
+        dispatch(addTodoToCategory({CategoryId: selectCategory, todo: newTodo}));
+        dispatch(removeTodoFromCategory({CategoryId: selectCategory, todo: newTodo}))
         setInput('');
         setUpdateTodo(false);
       }

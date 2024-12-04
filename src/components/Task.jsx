@@ -5,33 +5,48 @@ import TaskTimer from "../components/TaskTimer.jsx";
 import { removeTodo, startTodo } from "../features/todoSlice.js";
 import { removeTodoFromCategory } from "../features/categorySlice.js";
 import UpdateTodo from "./UpdateTodo.jsx";
+import { removeDaily, startDaily } from "../features/dailySlice.js";
+import UpdateDaily from "./UpdateDaily.jsx";
 
-
-export default function Task({id ,categoryId}) {
+export default function Task({id ,categoryId, type}) {
     const [isTaskTimerOpen, setIsTaskTimerOpen] = useState(false)
     const [updateTodo, setUpdateTodo] = useState(false)
-
-    let todo = useSelector(state => state.todos.todoList.find(todo => todo.id === id))
-    const activeStatus = todo.status
+    const [updateDaily, setUpdateDaily] = useState(false)
+    let daily =  useSelector(state => state.dailies.dailyList)
+    let pending = useSelector(state => state.todos.todoList)
     const dispatch = useDispatch()
 
+
+    let todo = type === 'daily' ? daily.find(todo => todo.id === id) : pending.find(todo => todo.id === id)
+
+    function handleTaskSelection() {
+        todo = type === 'daily' ? daily.find(todo => todo.id === id) : pending.find(todo => todo.id === id)
+
+    }
+
+    const activeStatus = todo?.status
     // Conditional classNames for styling based on task status
     const textColorClass = activeStatus === 'Completed' ? 'text-gray-400' : 'text-black';
     const tagsColorClass = activeStatus === 'Completed' ? 'text-[#CCCCCC]' : 'text-[#959595]';
 
     function handleTaskClick() {
-        dispatch(startTodo(id))
+        type === 'daily' ?
+            dispatch(startDaily(id)) :
+            dispatch(startTodo(id))
         setIsTaskTimerOpen(true)
     }
 
     function handleTodoDelete(){
-        dispatch(removeTodoFromCategory({CategoryId:categoryId ,toDo:todo}))
-        dispatch(removeTodo(id))
+        type === 'daily' ?
+            dispatch(removeDaily(id))  :
+            () => {
+            dispatch(removeTodoFromCategory({CategoryId:categoryId ,toDo:todo}))
+            dispatch(removeTodo(id))}
     }
 
     function handleTodoUpdate(){
-        setUpdateTodo(true)
-        todo = useSelector(state => state.todos.todoList.find(todo => todo.id === id))
+       type === 'daily'  ? setUpdateDaily(true) : setUpdateTodo(true)
+        handleTaskSelection()
     }
     return (
         <div className="w-full px-8 h-fit ">
@@ -90,11 +105,13 @@ export default function Task({id ,categoryId}) {
                 </div>
             </div>
             {isTaskTimerOpen &&
-                (<TaskTimer setIsTaskTimerOpen={setIsTaskTimerOpen} startedTaskId={id}/>)
+                (<TaskTimer setIsTaskTimerOpen={setIsTaskTimerOpen} startedTaskId={id}  />)
             }
             {updateTodo &&
-                (<UpdateTodo setUpdateTodo={setUpdateTodo} updateTodoId={todo.id}/>)
+                (<UpdateTodo setUpdateTodo={setUpdateTodo} updateTodoId={id} type={daily} />)
             }
+            { updateDaily &&
+                (<UpdateDaily setUpdateDaily={setUpdateDaily} updateTodoId={id}  />)}
         </div>
 
 

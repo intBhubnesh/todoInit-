@@ -4,20 +4,26 @@ import Plants from "./Plants.jsx"
 import { useDispatch, useSelector } from "react-redux";
 import TimerButtons  from "./TimerButtons.jsx"
 import { completedTodo, pausedTodo } from "../features/todoSlice.js";
+import { completedDaily, pauseDaily } from "../features/dailySlice.js";
 
 
-export default function TaskTimer({setIsTaskTimerOpen,startedTaskId}){
+export default function TaskTimer({setIsTaskTimerOpen,startedTaskId, type}){
     const [isButtonClicked ,setIsButtonClicked] = useState(true)
     const [plantBoxOpen, setPlantBoxOpen] = useState(true)
     const [plant, setPlant] = useState('plant0')
     const [remainingTime, setRemainingTime] = useState(0);
     const [isTimerActive, setIsTimerActive] = useState(false); // To start/stop the timer
+
     const dispatch = useDispatch()
     // Select the active "Started" todo from Redux state
-    const selectedTodo = useSelector((state) =>
-        state.todos.todoList.find((todos) => todos.id === startedTaskId)
-);
-console.log('time in TaskTimer : ', startedTaskId)
+    let daily =  useSelector(state => state.dailies.dailyList)
+    let pending = useSelector(state => state.todos.todoList)
+    console.log((type === 'daily'));;
+
+    const selectedTodo = type === 'daily' ? daily.find((todos) => todos.id === startedTaskId)
+                                        : pending.find(todos => todos.id === startedTaskId)
+
+    console.log('time in TaskTimer : ', selectedTodo)
 
     // Parse the time from the selectedTodo when it changes
     useEffect(() => {
@@ -90,23 +96,27 @@ useEffect(() => {
             timeStr += `${mins} min${mins > 1 ? "s" : ""}`; // Add minutes with proper pluralization
         }
 
-        return timeStr.trim(); // Trim extra spaces
+        return timeStr.trim(); //
     }
 
 
 
 
     function setTimeOnDoneConfirm(){
-        dispatch(completedTodo(startedTaskId))
-        setIsTaskTimerOpen(false)
         setRemainingTime(0)
+        type === 'daily' ? dispatch(completedDaily(startedTaskId)) : dispatch(completedTodo(startedTaskId))
+        setIsTaskTimerOpen(false)
         setIsTimerActive(false)
         setIsButtonClicked(false)
     }
     function setTimeOnQuitConfirm(){
-        dispatch(pausedTodo({id : startedTaskId, time : convertToOriginalTimeFormat(remainingTime)}))
-        setIsTaskTimerOpen(false)
+        if(type === 'daily'){
+            dispatch(pauseDaily({id : startedTaskId, time : convertToOriginalTimeFormat(remainingTime)}))
+        }else {
+            dispatch(pausedTodo({id : startedTaskId, time : convertToOriginalTimeFormat(remainingTime)}))
+        }
         setRemainingTime(0)
+        setIsTaskTimerOpen(false)
         setIsTimerActive(false)
         setIsButtonClicked(false)
     }
