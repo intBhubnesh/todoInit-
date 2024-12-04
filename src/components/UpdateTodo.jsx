@@ -1,5 +1,5 @@
 import {React, useState} from 'react'
-import ToDoTags from './toDoTags.jsx'
+import ToDoTags from './ToDoTags.jsx'
 import calender from '../assets/calender.svg'
 import time from "../assets/time.svg";
 import easy  from "../assets/easy.svg";
@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addTodo, updateTodo } from '../features/todoSlice';
 import { AnimatePresence,motion } from 'framer-motion';
 import { addTodoToCategory, removeTodoFromCategory } from '../features/categorySlice';
-import { nanoid } from '@reduxjs/toolkit';
+
 export default function CreateToDo({setUpdateTodo, updateTodoId }){
     const dispatch = useDispatch()
     const todo = useSelector(state => state.todos.todoList.find(todo => todo.id === updateTodoId))
