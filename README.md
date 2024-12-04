@@ -1,6 +1,6 @@
 # Task TO Be Done
 
-2. Add the Session Management
+2. Add loading screen 
 4. Add point Base
 5. modify the tree shop
 
